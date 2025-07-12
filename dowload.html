@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download - EA Store</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .download-container { background: white; padding: 3rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; max-width: 500px; }
+        h1 { color: #2c3e50; margin-bottom: 1rem; }
+        .success-icon { font-size: 4rem; color: #27ae60; margin-bottom: 1rem; }
+        .download-btn { display: inline-block; background: #27ae60; color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 25px; margin: 1rem; font-weight: bold; transition: all 0.3s; }
+        .download-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(39,174,96,0.4); }
+        .instructions { text-align: left; margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 10px; }
+        .back-btn { display: inline-block; background: #3498db; color: white; padding: 0.5rem 1rem; text-decoration: none; border-radius: 15px; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="download-container">
+        <div class="success-icon">✅</div>
+        <h1>Pagamento Confirmado!</h1>
+        <p>Obrigado pela compra. Seu download está pronto:</p>
+        
+        <div id="download-links">
+            <!-- Links serão inseridos via JavaScript -->
+        </div>
+        
+        <div class="instructions">
+            <h3>Como Instalar:</h3>
+            <ol>
+                <li>Abra o MetaTrader 4 ou 5</li>
+                <li>Vá em Arquivo → Abrir Pasta de Dados</li>
+                <li>Copie o arquivo para MQL4/Experts (EA) ou MQL4/Indicators</li>
+                <li>Reinicie o MetaTrader</li>
+                <li>O produto aparecerá na lista</li>
+            </ol>
+        </div>
+        
+        <a href="index.html" class="back-btn">Voltar ao Site</a>
+    </div>
+
+    <script>
+        // Verificar qual produto foi comprado
+        const urlParams = new URLSearchParams(window.location.search);
+        const produto = urlParams.get('produto');
+        const downloadLinks = document.getElementById('download-links');
+        
+        const produtos = {
+            'ea-scalper': {
+                nome: 'EA Scalper Pro MT4',
+                arquivo: 'ea-scalper-pro.ex4',
+                manual: 'manual-scalper.pdf'
+            },
+            'trend-master': {
+                nome: 'Trend Master MT5',
+                arquivo: 'trend-master.ex5',
+                manual: 'manual-trend.pdf'
+            },
+            'signal-arrow': {
+                nome: 'Signal Arrow MT4/MT5',
+                arquivo: 'signal-arrow.ex4',
+                manual: 'manual-signal.pdf'
+            }
+        };
+        
+        if (produto && produtos[produto]) {
+            const p = produtos[produto];
+            downloadLinks.innerHTML = `
+                <h2>${p.nome}</h2>
+                <a href="downloads/${p.arquivo}" class="download-btn" download>📥 Baixar Arquivo Principal</a>
+                <a href="downloads/${p.manual}" class="download-btn" download>📖 Baixar Manual</a>
+            `;
+        } else {
+            downloadLinks.innerHTML = '<p>Produto não encontrado.</p>';
+        }
+    </script>
+</body>
+</html>
